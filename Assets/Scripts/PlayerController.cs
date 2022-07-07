@@ -4,16 +4,19 @@ using UnityEngine;
 
 public class PlayerController : MonoBehaviour
 {
-    [SerializeField] private Transform viewPoint;
-    [SerializeField] private float mouseSensitivity = 1f;
+    public Transform viewPoint;
+    public float mouseSensitivity = 1f;
     private float verticalRotationStore;
     private Vector2 mouseInput;
+
+
+    public bool invertLook;
 
 
 
     private void Start()
     {
-        
+        Cursor.lockState = CursorLockMode.Locked;
     }
 
     void Update()
@@ -25,6 +28,14 @@ public class PlayerController : MonoBehaviour
         verticalRotationStore += mouseInput.y;
         verticalRotationStore = Mathf.Clamp(verticalRotationStore, -60f, 60f);
 
-        viewPoint.rotation = Quaternion.Euler(verticalRotationStore, viewPoint.rotation.eulerAngles.y, viewPoint.rotation.eulerAngles.z);
+        if (invertLook)
+        {
+            viewPoint.rotation = Quaternion.Euler(verticalRotationStore, viewPoint.rotation.eulerAngles.y, viewPoint.rotation.eulerAngles.z);
+
+        } else
+        {
+            viewPoint.rotation = Quaternion.Euler(-verticalRotationStore, viewPoint.rotation.eulerAngles.y, viewPoint.rotation.eulerAngles.z);
+        }
+
     }
 }
