@@ -20,6 +20,8 @@ public class PlayerController : MonoBehaviour
 
     private Camera cam;
 
+    public float jumpForce = 12f, gravityMod = 2.5f;
+
     private void Start()
     {
         Cursor.lockState = CursorLockMode.Locked;
@@ -62,7 +64,12 @@ public class PlayerController : MonoBehaviour
         }
 
 
-        movement.y += Physics.gravity.y * Time.deltaTime;
+        if (Input.GetButtonDown("Jump"))
+        {
+            movement.y = jumpForce;
+        }
+
+        movement.y += Physics.gravity.y * Time.deltaTime * gravityMod;
 
         characterController.Move(movement * Time.deltaTime);
     }
