@@ -12,7 +12,8 @@ public class PlayerController : MonoBehaviour
 
     public bool invertLook;
 
-
+    public float moveSpeed = 5f;
+    private Vector3 moveDirection, movement;
 
     private void Start()
     {
@@ -20,6 +21,23 @@ public class PlayerController : MonoBehaviour
     }
 
     void Update()
+    {
+        RotateView();
+
+        MovePlayer();
+
+    }
+
+    private void MovePlayer()
+    {
+        moveDirection = new Vector3(Input.GetAxisRaw("Horizontal"), 0f, Input.GetAxisRaw("Vertical"));
+
+        movement = ((transform.forward * moveDirection.z) + (transform.right * moveDirection.x)).normalized;
+
+        transform.position += movement * moveSpeed * Time.deltaTime;
+    }
+
+    private void RotateView()
     {
         mouseInput = new Vector2(Input.GetAxisRaw("Mouse X"), Input.GetAxisRaw("Mouse Y")) * mouseSensitivity;
 
@@ -32,10 +50,10 @@ public class PlayerController : MonoBehaviour
         {
             viewPoint.rotation = Quaternion.Euler(verticalRotationStore, viewPoint.rotation.eulerAngles.y, viewPoint.rotation.eulerAngles.z);
 
-        } else
+        }
+        else
         {
             viewPoint.rotation = Quaternion.Euler(-verticalRotationStore, viewPoint.rotation.eulerAngles.y, viewPoint.rotation.eulerAngles.z);
         }
-
     }
 }
