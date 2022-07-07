@@ -585,12 +585,12 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 963194225}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 0, y: 1.5, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 1719538089}
-  m_RootOrder: 0
+  m_Father: {fileID: 0}
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1029477282
 GameObject:
@@ -630,7 +630,7 @@ Transform:
   - {fileID: 1217546722}
   - {fileID: 1779628635}
   m_Father: {fileID: 0}
-  m_RootOrder: 2
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1217546718
 GameObject:
@@ -951,8 +951,7 @@ Transform:
   m_LocalPosition: {x: 0, y: 0.5, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
-  m_Children:
-  - {fileID: 963194228}
+  m_Children: []
   m_Father: {fileID: 2126440272}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -982,14 +981,14 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1779628634}
-  m_LocalRotation: {x: -0.23521063, y: 0.4686202, z: -0.33585826, w: 0.782477}
-  m_LocalPosition: {x: 0.492, y: -0.02, z: 7.2}
+  m_LocalRotation: {x: -0.15925615, y: 0.4986081, z: -0.28947487, w: 0.8013936}
+  m_LocalPosition: {x: 0.492, y: -0.33, z: 7.2}
   m_LocalScale: {x: 1.4266325, y: 1.4266325, z: 1.4266325}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 1029477283}
   m_RootOrder: 8
-  m_LocalEulerAnglesHint: {x: -3.056, y: 63.206, z: -48.341}
+  m_LocalEulerAnglesHint: {x: 1.915, y: 63.108, z: -38.545}
 --- !u!65 &1779628636
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -1429,7 +1428,7 @@ Transform:
   - {fileID: 1694839976}
   - {fileID: 1719538089}
   m_Father: {fileID: 0}
-  m_RootOrder: 1
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &2126440273
 MonoBehaviour:
@@ -1447,6 +1446,7 @@ MonoBehaviour:
   mouseSensitivity: 1
   invertLook: 0
   moveSpeed: 5
+  runSpeed: 8
   characterController: {fileID: 2126440274}
 --- !u!143 &2126440274
 CharacterController:
@@ -1461,7 +1461,7 @@ CharacterController:
   serializedVersion: 2
   m_Height: 2
   m_Radius: 0.5
-  m_SlopeLimit: 45
+  m_SlopeLimit: 55
   m_StepOffset: 0.3
   m_SkinWidth: 0.08
   m_MinMoveDistance: 0.001

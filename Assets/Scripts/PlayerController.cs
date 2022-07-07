@@ -12,14 +12,18 @@ public class PlayerController : MonoBehaviour
 
     public bool invertLook;
 
-    public float moveSpeed = 5f;
+    public float moveSpeed = 5f, runSpeed = 8f;
+    private float activeMoveSpeed;
     private Vector3 moveDirection, movement;
 
     public CharacterController characterController;
 
+    private Camera cam;
+
     private void Start()
     {
         Cursor.lockState = CursorLockMode.Locked;
+        cam = Camera.main;
     }
 
     void Update()
@@ -30,13 +34,37 @@ public class PlayerController : MonoBehaviour
 
     }
 
+    void LateUpdate()
+    {
+        cam.transform.position = viewPoint.position;
+        cam.transform.rotation = viewPoint.rotation;
+    }
+
     private void MovePlayer()
     {
         moveDirection = new Vector3(Input.GetAxisRaw("Horizontal"), 0f, Input.GetAxisRaw("Vertical"));
 
-        movement = ((transform.forward * moveDirection.z) + (transform.right * moveDirection.x)).normalized;
+        if (Input.GetKey(KeyCode.LeftShift))
+        {
+            activeMoveSpeed = runSpeed;
+        } else
+        {
+            activeMoveSpeed = moveSpeed;
+        }
 
-        characterController.Move(movement * moveSpeed * Time.deltaTime);
+        float yVel = movement.y;
+        movement = ((transform.forward * moveDirection.z) + (transform.right * moveDirection.x)).normalized * activeMoveSpeed;
+        movement.y = yVel;
+
+        if (characterController.isGrounded)
+        {
+            movement.y = 0f;
+        }
+
+
+        movement.y += Physics.gravity.y * Time.deltaTime;
+
+        characterController.Move(movement * Time.deltaTime);
     }
 
     private void RotateView()
