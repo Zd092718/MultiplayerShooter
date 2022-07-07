@@ -15,6 +15,8 @@ public class PlayerController : MonoBehaviour
     public float moveSpeed = 5f;
     private Vector3 moveDirection, movement;
 
+    public CharacterController characterController;
+
     private void Start()
     {
         Cursor.lockState = CursorLockMode.Locked;
@@ -34,7 +36,7 @@ public class PlayerController : MonoBehaviour
 
         movement = ((transform.forward * moveDirection.z) + (transform.right * moveDirection.x)).normalized;
 
-        transform.position += movement * moveSpeed * Time.deltaTime;
+        characterController.Move(movement * moveSpeed * Time.deltaTime);
     }
 
     private void RotateView()
