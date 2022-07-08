@@ -27,6 +27,13 @@ public class PlayerController : MonoBehaviour
     public LayerMask groundLayerMask;
 
     public GameObject bulletImpactPrefab;
+    public float timeBetweenShots = .1f;
+    private float shotCounter;
+
+    public float maxHeat = 10f, heatPerShot = 1f, coolRate = 4f, overheatCoolRate = 5f;
+    private float heatCounter;
+    private bool hasOverHeated;
+
 
     private void Start()
     {
@@ -40,10 +47,37 @@ public class PlayerController : MonoBehaviour
 
         MovePlayer();
 
-
-        if (Input.GetMouseButtonDown(0))
+        if (!hasOverHeated)
         {
-            Shoot();
+
+            if (Input.GetMouseButtonDown(0))
+            {
+                Shoot();
+            }
+
+            if (Input.GetMouseButton(0))
+            {
+                shotCounter -= Time.deltaTime;
+
+                if(shotCounter <= 0)
+                {
+                    Shoot();
+                }
+            }
+
+            heatCounter -= coolRate * Time.deltaTime;
+        } else
+        {
+            heatCounter -= overheatCoolRate * Time.deltaTime;
+            if(heatCounter <= 0)
+            { 
+                hasOverHeated = false;
+            }
+        }
+
+        if(heatCounter < 0)
+        {
+            heatCounter = 0;
         }
 
         // Provides mouse cursor access when pressing escap
@@ -134,6 +168,16 @@ public class PlayerController : MonoBehaviour
 
             GameObject bulletImpactObject = Instantiate(bulletImpactPrefab, hit.point + (hit.normal * .002f), Quaternion.LookRotation(hit.normal, Vector3.up));
             Destroy(bulletImpactObject, 10f);
+        }
+
+        shotCounter = timeBetweenShots;
+
+        heatCounter += heatPerShot;
+        if(heatCounter >= maxHeat)
+        {
+            heatCounter = maxHeat;
+
+            hasOverHeated = true;
         }
     }
 }
