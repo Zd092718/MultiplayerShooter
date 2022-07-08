@@ -38,11 +38,19 @@ public class PlayerController : MonoBehaviour
 
         MovePlayer();
 
+
+        if (Input.GetMouseButtonDown(0))
+        {
+            Shoot();
+        }
+
+        // Provides mouse cursor access when pressing escap
         if (Input.GetKeyDown(KeyCode.Escape))
         {
             Cursor.lockState = CursorLockMode.None;
         } else if(Cursor.lockState == CursorLockMode.None)
         {
+            // re-enables character control if "escaped" out
             if (Input.GetMouseButtonDown(0))
             {
                 Cursor.lockState = CursorLockMode.Locked;
@@ -110,6 +118,17 @@ public class PlayerController : MonoBehaviour
         else
         {
             viewPoint.rotation = Quaternion.Euler(-verticalRotationStore, viewPoint.rotation.eulerAngles.y, viewPoint.rotation.eulerAngles.z);
+        }
+    }
+
+    private void Shoot()
+    {
+        Ray ray = cam.ViewportPointToRay(new Vector3(.5f, .5f, 0));
+        ray.origin = cam.transform.position;
+
+        if (Physics.Raycast(ray, out RaycastHit hit))
+        {
+            Debug.Log("We hit: " + hit.collider.gameObject.name);
         }
     }
 }
