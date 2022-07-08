@@ -1556,6 +1556,7 @@ MonoBehaviour:
   groundLayerMask:
     serializedVersion: 2
     m_Bits: 8
+  bulletImpactPrefab: {fileID: 6886563630846930468, guid: a5b7bf1f6eb53a544bf746cfedf905d1, type: 3}
 --- !u!143 &2126440274
 CharacterController:
   m_ObjectHideFlags: 0
