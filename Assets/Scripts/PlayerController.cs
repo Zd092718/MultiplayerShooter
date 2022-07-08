@@ -38,6 +38,17 @@ public class PlayerController : MonoBehaviour
 
         MovePlayer();
 
+        if (Input.GetKeyDown(KeyCode.Escape))
+        {
+            Cursor.lockState = CursorLockMode.None;
+        } else if(Cursor.lockState == CursorLockMode.None)
+        {
+            if (Input.GetMouseButtonDown(0))
+            {
+                Cursor.lockState = CursorLockMode.Locked;
+            }
+        }
+
     }
 
     void LateUpdate()
