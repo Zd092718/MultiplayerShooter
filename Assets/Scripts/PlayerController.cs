@@ -29,6 +29,8 @@ public class PlayerController : MonoBehaviour
     public GameObject bulletImpactPrefab;
     //public float timeBetweenShots = .1f;
     private float shotCounter;
+    public float muzzleDisplayTime;
+    private float muzzleCounter;
 
     public float maxHeat = 10f, /*heatPerShot = 1f,*/ coolRate = 4f, overheatCoolRate = 5f;
     private float heatCounter;
@@ -53,6 +55,16 @@ public class PlayerController : MonoBehaviour
         RotateView();
 
         MovePlayer();
+
+        if (allGuns[selectedGun].muzzleFlash.activeInHierarchy)
+        {
+            muzzleCounter -= Time.deltaTime;
+
+            if (muzzleCounter <= 0)
+            {
+                allGuns[selectedGun].muzzleFlash.SetActive(false);
+            }
+        }
 
         if (!hasOverHeated)
         {
@@ -97,16 +109,17 @@ public class PlayerController : MonoBehaviour
         {
             selectedGun++;
 
-            if(selectedGun >= allGuns.Length)
+            if (selectedGun >= allGuns.Length)
             {
                 selectedGun = 0;
             }
             SwitchGun();
-        } else if(Input.GetAxisRaw("Mouse ScrollWheel") < 0f)
+        }
+        else if (Input.GetAxisRaw("Mouse ScrollWheel") < 0f)
         {
             selectedGun--;
 
-            if(selectedGun < 0)
+            if (selectedGun < 0)
             {
                 selectedGun = allGuns.Length - 1;
             }
@@ -219,15 +232,20 @@ public class PlayerController : MonoBehaviour
 
             UIController.Instance.weaponOverheatedText.gameObject.SetActive(true);
         }
+
+        allGuns[selectedGun].muzzleFlash.SetActive(true);
+        muzzleCounter = muzzleDisplayTime;
     }
 
     void SwitchGun()
     {
-        foreach(Gun gun in allGuns)
+        foreach (Gun gun in allGuns)
         {
             gun.gameObject.SetActive(false);
         }
 
         allGuns[selectedGun].gameObject.SetActive(true);
+
+        allGuns[selectedGun].muzzleFlash.SetActive(false);
     }
 }
