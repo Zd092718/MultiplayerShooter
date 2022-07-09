@@ -39,6 +39,8 @@ public class PlayerController : MonoBehaviour
     {
         Cursor.lockState = CursorLockMode.Locked;
         cam = Camera.main;
+
+        UIController.Instance.weaponTempSlider.maxValue = maxHeat;
     }
 
     void Update()
@@ -81,6 +83,8 @@ public class PlayerController : MonoBehaviour
         {
             heatCounter = 0;
         }
+
+        UIController.Instance.weaponTempSlider.value = heatCounter;
 
         // Provides mouse cursor access when pressing escap
         if (Input.GetKeyDown(KeyCode.Escape))
