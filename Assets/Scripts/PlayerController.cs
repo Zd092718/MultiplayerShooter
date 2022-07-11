@@ -48,6 +48,10 @@ public class PlayerController : MonoBehaviour
         UIController.Instance.weaponTempSlider.maxValue = maxHeat;
 
         SwitchGun();
+
+        Transform newTransform = SpawnManager.Instance.GetSpawnPoint();
+        transform.position = newTransform.position;
+        transform.rotation = newTransform.rotation;
     }
 
     void Update()
@@ -126,7 +130,14 @@ public class PlayerController : MonoBehaviour
             SwitchGun();
         }
 
-
+        for(int i = 0; i < allGuns.Length; i++)
+        {
+            if (Input.GetKeyDown((i + 1).ToString()))
+            {
+                selectedGun = i;
+                SwitchGun();
+            }
+        }
 
 
         // Provides mouse cursor access when pressing escap
