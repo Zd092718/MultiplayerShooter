@@ -28,8 +28,11 @@ public class Launcher : MonoBehaviourPunCallbacks
     public GameObject errorScreen;
     public TMP_Text errorText;
 
+    public GameObject roomBrowserScreen;
+    public RoomButton roomButton;
+    private List<RoomButton> allRoomButtons = new List<RoomButton>();
 
-    // Start is called before the first frame update
+
     void Start()
     {
         CloseMenus();
@@ -49,6 +52,7 @@ public class Launcher : MonoBehaviourPunCallbacks
         createRoomScreen.SetActive(false);
         roomScreen.SetActive(false);
         errorScreen.SetActive(false);
+        roomBrowserScreen.SetActive(false);
     }
 
     public override void OnConnectedToMaster()
@@ -118,5 +122,48 @@ public class Launcher : MonoBehaviourPunCallbacks
     {
         CloseMenus();
         menuButtons.SetActive(true);
+    }
+
+    public void OpenRoomBrowser()
+    {
+        CloseMenus();
+        roomBrowserScreen.SetActive(true);
+    }
+
+    public void CloseRoomBrowser()
+    {
+        CloseMenus();
+        menuButtons.SetActive(true);
+    }
+
+    public override void OnRoomListUpdate(List<RoomInfo> roomList)
+    {
+        foreach (RoomButton rb in allRoomButtons)
+        {
+            Destroy(rb.gameObject);
+        }
+        allRoomButtons.Clear();
+
+        roomButton.gameObject.SetActive(false);
+
+        for (int i = 0; i < roomList.Count; i++)
+        {
+            if (roomList[i].PlayerCount != roomList[i].MaxPlayers && !roomList[i].RemovedFromList)
+            {
+                RoomButton newButton = Instantiate(roomButton, roomButton.transform.parent);
+                newButton.SetButtonDetails(roomList[i]);
+                newButton.gameObject.SetActive(true);
+
+                allRoomButtons.Add(newButton);
+            }
+        }
+    }
+
+    public void JoinRoom(RoomInfo roomInfo)
+    {
+        PhotonNetwork.JoinRoom(roomInfo.Name);
+        CloseMenus();
+        loadingText.text = "Joining Room...";
+        loadingScreen.SetActive(true);
     }
 }
