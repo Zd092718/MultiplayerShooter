@@ -7,7 +7,7 @@ using Photon.Realtime;
 
 public class Launcher : MonoBehaviourPunCallbacks
 {
-    public static Launcher Instance { get; private set; }
+    public static Launcher Instance;
 
     private void Awake()
     {
