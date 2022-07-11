@@ -488,6 +488,22 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 936724235}
     m_Modifications:
+    - target: {fileID: 3003530845831648730, guid: e99536db14b2e794b82d30d47988bd1b, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 1566890307}
+    - target: {fileID: 3003530845831648730, guid: e99536db14b2e794b82d30d47988bd1b, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: LeaveRoom
+      objectReference: {fileID: 0}
+    - target: {fileID: 3003530845831648730, guid: e99536db14b2e794b82d30d47988bd1b, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
+      value: Launcher, Assembly-CSharp
+      objectReference: {fileID: 0}
+    - target: {fileID: 3003530845831648730, guid: e99536db14b2e794b82d30d47988bd1b, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
+      value: UnityEngine.Object, UnityEngine
+      objectReference: {fileID: 0}
     - target: {fileID: 3003530845831648732, guid: e99536db14b2e794b82d30d47988bd1b, type: 3}
       propertyPath: m_Name
       value: Leave Button
@@ -1824,7 +1840,8 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3003530846883327355, guid: e99536db14b2e794b82d30d47988bd1b, type: 3}
       propertyPath: m_text
-      value: 'Leave room
+      value: 'Close
+
 
 '
       objectReference: {fileID: 0}
