@@ -166,4 +166,9 @@ public class Launcher : MonoBehaviourPunCallbacks
         loadingText.text = "Joining Room...";
         loadingScreen.SetActive(true);
     }
+
+    public void QuitGame()
+    {
+        Application.Quit();
+    }
 }
