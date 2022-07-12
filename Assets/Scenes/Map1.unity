@@ -4626,6 +4626,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   playerPrefab: {fileID: 976756551944879895, guid: 912818da3eeace242be3a71265a59821, type: 3}
+  deathEffect: {fileID: 8130162186876831700, guid: e9af4091fe8260a4aa779d0563c445dc, type: 3}
 --- !u!1 &1785192384 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: -3756473180518285571, guid: 0b91dd02b4dad5e4e9c023c58f82d6a6, type: 3}
