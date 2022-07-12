@@ -17,6 +17,9 @@ public class UIController : MonoBehaviour
     public TMP_Text weaponOverheatedText;
     public Slider weaponTempSlider;
 
+    public GameObject deathScreen;
+    public TMP_Text deathText;
+
 
     // Start is called before the first frame update
     void Start()

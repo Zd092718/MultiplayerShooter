@@ -17,6 +17,8 @@ public class PlayerSpawner : MonoBehaviour
 
     public GameObject deathEffect;
 
+    public float respawnTime = 5f;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -33,11 +35,27 @@ public class PlayerSpawner : MonoBehaviour
         player = PhotonNetwork.Instantiate(playerPrefab.name, spawnPoint.position, spawnPoint.rotation);
     }
 
-    public void Die()
+    public void Die(string damager)
+    {
+
+        UIController.Instance.deathText.text = "You were killed by " + damager;
+
+        if (player != null)
+        {
+            StartCoroutine(DieCo());
+        }
+    }
+
+    public IEnumerator DieCo()
     {
         PhotonNetwork.Instantiate(deathEffect.name, player.transform.position, Quaternion.identity);
 
         PhotonNetwork.Destroy(player);
+        UIController.Instance.deathScreen.SetActive(true);
+
+        yield return new WaitForSeconds(respawnTime);
+
+        UIController.Instance.deathScreen.SetActive(false);
 
         SpawnPlayer();
     }
