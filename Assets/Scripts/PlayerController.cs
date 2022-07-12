@@ -43,6 +43,9 @@ public class PlayerController : MonoBehaviourPunCallbacks
 
     public GameObject playerHitImpact;
 
+    public int maxHealth = 100;
+    private int currentHealth;
+
 
     private void Start()
     {
@@ -53,6 +56,7 @@ public class PlayerController : MonoBehaviourPunCallbacks
 
         SwitchGun();
 
+        currentHealth = maxHealth;
         //Transform newTransform = SpawnManager.Instance.GetSpawnPoint();
         //transform.position = newTransform.position;
         //transform.rotation = newTransform.rotation;
@@ -243,7 +247,7 @@ public class PlayerController : MonoBehaviourPunCallbacks
 
                 PhotonNetwork.Instantiate(playerHitImpact.name, hit.point, Quaternion.identity);
 
-                hit.collider.gameObject.GetPhotonView().RPC("DealDamage", RpcTarget.All, photonView.Owner.NickName);
+                hit.collider.gameObject.GetPhotonView().RPC("DealDamage", RpcTarget.All, photonView.Owner.NickName, allGuns[selectedGun].shotDamage);
             }
             else
             {
@@ -271,17 +275,23 @@ public class PlayerController : MonoBehaviourPunCallbacks
     }
 
     [PunRPC]
-    public void DealDamage(string damager)
+    public void DealDamage(string damager, int damageAmount)
     {
-        TakeDamage(damager);
+        TakeDamage(damager, damageAmount);
     }
 
-    public void TakeDamage(string damager)
+    public void TakeDamage(string damager, int damageAmount)
     {
         if (photonView.IsMine)
         {
             //Debug.Log(photonView.Owner.NickName + " has been hit by " + damager);
-            PlayerSpawner.Instance.Die(damager);
+            currentHealth -= damageAmount;
+            if (currentHealth <= 0)
+            {
+                currentHealth = 0;
+
+                PlayerSpawner.Instance.Die(damager);
+            }
         }
 
     }
