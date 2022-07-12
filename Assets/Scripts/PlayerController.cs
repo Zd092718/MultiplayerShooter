@@ -46,6 +46,8 @@ public class PlayerController : MonoBehaviourPunCallbacks
     public int maxHealth = 100;
     private int currentHealth;
 
+    public Animator anim;
+
 
     private void Start()
     {
@@ -152,7 +154,9 @@ public class PlayerController : MonoBehaviourPunCallbacks
                 }
             }
 
-
+            anim.SetBool("grounded", isGrounded);
+            anim.SetFloat("speed", moveDirection.magnitude);
+            
             // Provides mouse cursor access when pressing escap
             if (Input.GetKeyDown(KeyCode.Escape))
             {
