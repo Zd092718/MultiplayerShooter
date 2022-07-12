@@ -57,6 +57,9 @@ public class PlayerController : MonoBehaviourPunCallbacks
         SwitchGun();
 
         currentHealth = maxHealth;
+        UIController.Instance.healthSlider.maxValue = maxHealth;
+        UIController.Instance.healthSlider.value = currentHealth;
+
         //Transform newTransform = SpawnManager.Instance.GetSpawnPoint();
         //transform.position = newTransform.position;
         //transform.rotation = newTransform.rotation;
@@ -286,12 +289,15 @@ public class PlayerController : MonoBehaviourPunCallbacks
         {
             //Debug.Log(photonView.Owner.NickName + " has been hit by " + damager);
             currentHealth -= damageAmount;
+            
             if (currentHealth <= 0)
             {
                 currentHealth = 0;
 
                 PlayerSpawner.Instance.Die(damager);
             }
+
+            UIController.Instance.healthSlider.value = currentHealth;
         }
 
     }

@@ -189,6 +189,7 @@ MonoBehaviour:
   - {fileID: 976756552465392011}
   - {fileID: 976756552692473207}
   playerHitImpact: {fileID: 6886563630846930468, guid: aa662e670be22ad488f76a5315e769e6, type: 3}
+  maxHealth: 100
 --- !u!143 &976756551944879881
 CharacterController:
   m_ObjectHideFlags: 0
