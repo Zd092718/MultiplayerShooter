@@ -48,6 +48,7 @@ public class PlayerController : MonoBehaviourPunCallbacks
 
     public Animator anim;
     public GameObject playerModel;
+    public Transform modelGunPoint, gunHolder;
 
 
     private void Start()
@@ -73,6 +74,11 @@ public class PlayerController : MonoBehaviourPunCallbacks
 
             UIController.Instance.healthSlider.maxValue = maxHealth;
             UIController.Instance.healthSlider.value = currentHealth;
+        } else
+        {
+            gunHolder.parent = modelGunPoint;
+            gunHolder.localPosition = Vector3.zero;
+            gunHolder.localRotation = Quaternion.identity;
         }
     }
 
