@@ -47,6 +47,7 @@ public class PlayerController : MonoBehaviourPunCallbacks
     private int currentHealth;
 
     public Animator anim;
+    public GameObject playerModel;
 
 
     private void Start()
@@ -59,12 +60,20 @@ public class PlayerController : MonoBehaviourPunCallbacks
         SwitchGun();
 
         currentHealth = maxHealth;
-        UIController.Instance.healthSlider.maxValue = maxHealth;
-        UIController.Instance.healthSlider.value = currentHealth;
+ 
 
         //Transform newTransform = SpawnManager.Instance.GetSpawnPoint();
         //transform.position = newTransform.position;
         //transform.rotation = newTransform.rotation;
+
+        if (photonView.IsMine)
+        {
+            playerModel.SetActive(false);
+
+
+            UIController.Instance.healthSlider.maxValue = maxHealth;
+            UIController.Instance.healthSlider.value = currentHealth;
+        }
     }
 
     void Update()

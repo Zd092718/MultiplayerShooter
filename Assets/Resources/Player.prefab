@@ -192,6 +192,7 @@ MonoBehaviour:
   playerHitImpact: {fileID: 6886563630846930468, guid: aa662e670be22ad488f76a5315e769e6, type: 3}
   maxHealth: 100
   anim: {fileID: 1245946947212972794}
+  playerModel: {fileID: 1245946947235996897}
 --- !u!143 &976756551944879881
 CharacterController:
   m_ObjectHideFlags: 0
@@ -1010,34 +1011,16 @@ Animator:
   m_CorrespondingSourceObject: {fileID: 1046021142975120984, guid: 38074321d88bbe3438955d413494dac3, type: 3}
   m_PrefabInstance: {fileID: 2291849019313886370}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &1245946947235996897 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 1046021142964596803, guid: 38074321d88bbe3438955d413494dac3, type: 3}
+  m_PrefabInstance: {fileID: 2291849019313886370}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1245946947235997015 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 1046021142964597237, guid: 38074321d88bbe3438955d413494dac3, type: 3}
   m_PrefabInstance: {fileID: 2291849019313886370}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &2954415589037088974
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1245946947235997015}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: aa584fbee541324448dd18d8409c7a41, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  ObservedComponentsFoldoutOpen: 1
-  Group: 0
-  prefixField: -1
-  Synchronization: 3
-  OwnershipTransfer: 0
-  observableSearch: 0
-  ObservedComponents:
-  - {fileID: 2489811065987588400}
-  sceneViewId: 0
-  InstantiationId: 0
-  isRuntimeInstantiated: 0
 --- !u!114 &2489811065987588400
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1062,6 +1045,29 @@ MonoBehaviour:
   m_SynchronizeLayers:
   - SynchronizeType: 0
     LayerIndex: 0
+--- !u!114 &2954415589037088974
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1245946947235997015}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: aa584fbee541324448dd18d8409c7a41, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ObservedComponentsFoldoutOpen: 1
+  Group: 0
+  prefixField: -1
+  Synchronization: 3
+  OwnershipTransfer: 0
+  observableSearch: 0
+  ObservedComponents:
+  - {fileID: 2489811065987588400}
+  sceneViewId: 0
+  InstantiationId: 0
+  isRuntimeInstantiated: 0
 --- !u!4 &1245946947236034755 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 1046021142964628577, guid: 38074321d88bbe3438955d413494dac3, type: 3}
