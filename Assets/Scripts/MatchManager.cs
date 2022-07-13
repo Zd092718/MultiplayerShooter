@@ -25,6 +25,8 @@ public class MatchManager : MonoBehaviourPunCallbacks, IOnEventCallback
     public List<PlayerInfo> allPlayers = new List<PlayerInfo>();
     private int index;
 
+    private List<LeaderboardPlayer> lboardPlayers = new List<LeaderboardPlayer>();
+
 
 
     // Start is called before the first frame update
@@ -44,7 +46,18 @@ public class MatchManager : MonoBehaviourPunCallbacks, IOnEventCallback
     // Update is called once per frame
     void Update()
     {
+        if (Input.GetKeyDown(KeyCode.Tab))
+        {
+            if (UIController.Instance.leaderboard.activeInHierarchy)
+            {
+                UIController.Instance.leaderboard.SetActive(false);
+            }
+            else
+            {
+                ShowLeaderboard();
+            }
 
+        }
     }
 
     public void OnEvent(EventData photonEvent)
@@ -185,7 +198,7 @@ public class MatchManager : MonoBehaviourPunCallbacks, IOnEventCallback
                         break;
                 }
 
-                if(i == index)
+                if (i == index)
                 {
                     UpdateStatsDisplay();
                 }
@@ -202,12 +215,38 @@ public class MatchManager : MonoBehaviourPunCallbacks, IOnEventCallback
             UIController.Instance.killsText.text = "Kills: " + allPlayers[index].kills;
             UIController.Instance.deathsText.text = "Deaths: " + allPlayers[index].deaths;
 
-        } else
+        }
+        else
         {
             UIController.Instance.killsText.text = "Kills: 0";
             UIController.Instance.deathsText.text = "Deaths: 0";
         }
 
+    }
+
+    void ShowLeaderboard()
+    {
+        UIController.Instance.leaderboard.SetActive(true);
+
+        foreach (LeaderboardPlayer lp in lboardPlayers)
+        {
+            Destroy(lp.gameObject);
+        }
+
+        lboardPlayers.Clear();
+
+        UIController.Instance.leaderboardPlayerDisplay.gameObject.SetActive(false);
+
+        foreach (PlayerInfo player in allPlayers)
+        {
+            LeaderboardPlayer newPlayerDisplay = Instantiate(UIController.Instance.leaderboardPlayerDisplay, UIController.Instance.leaderboardPlayerDisplay.transform.parent);
+
+            newPlayerDisplay.SetDetails(player.name, player.kills, player.deaths);
+
+            newPlayerDisplay.gameObject.SetActive(true);
+
+            lboardPlayers.Add(newPlayerDisplay);
+        }
     }
 }
 
