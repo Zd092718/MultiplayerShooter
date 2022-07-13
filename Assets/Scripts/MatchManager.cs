@@ -169,9 +169,9 @@ public class MatchManager : MonoBehaviourPunCallbacks, IOnEventCallback
         int statType = (int)dataReceived[1];
         int amount = (int)dataReceived[2];
 
-        for(int i = 0; i < allPlayers.Count; i++)
+        for (int i = 0; i < allPlayers.Count; i++)
         {
-            if(allPlayers[i].actor == actor)
+            if (allPlayers[i].actor == actor)
             {
                 switch (statType)
                 {
@@ -185,9 +185,29 @@ public class MatchManager : MonoBehaviourPunCallbacks, IOnEventCallback
                         break;
                 }
 
+                if(i == index)
+                {
+                    UpdateStatsDisplay();
+                }
+
                 break;
             }
         }
+    }
+
+    public void UpdateStatsDisplay()
+    {
+        if (allPlayers.Count > index)
+        {
+            UIController.Instance.killsText.text = "Kills: " + allPlayers[index].kills;
+            UIController.Instance.deathsText.text = "Deaths: " + allPlayers[index].deaths;
+
+        } else
+        {
+            UIController.Instance.killsText.text = "Kills: 0";
+            UIController.Instance.deathsText.text = "Deaths: 0";
+        }
+
     }
 }
 
