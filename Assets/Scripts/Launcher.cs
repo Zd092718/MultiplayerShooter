@@ -35,7 +35,7 @@ public class Launcher : MonoBehaviourPunCallbacks
 
     public GameObject nameInputScreen;
     public TMP_InputField nameInput;
-    private bool hasSetNickname;
+    public static bool hasSetNickname;
 
     public string levelToPlay;
     public GameObject startButton;
@@ -55,7 +55,8 @@ public class Launcher : MonoBehaviourPunCallbacks
         roomTestButton.SetActive(true);
 #endif
 
-
+        Cursor.lockState = CursorLockMode.None;
+        Cursor.visible = true;
     }
 
     void CloseMenus()
