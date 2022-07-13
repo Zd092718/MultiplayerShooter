@@ -53,8 +53,6 @@ public class MatchManager : MonoBehaviourPunCallbacks, IOnEventCallback
             EventCodes theEvent = (EventCodes)photonEvent.Code;
             object[] data = (object[])photonEvent.CustomData;
 
-            Debug.Log("Received Event " + theEvent);
-
             switch (theEvent)
             {
                 case EventCodes.NewPlayer:
@@ -98,7 +96,9 @@ public class MatchManager : MonoBehaviourPunCallbacks, IOnEventCallback
 
     public void NewPlayerReceive(object[] dataReceived)
     {
+        PlayerInfo player = new PlayerInfo((string)dataReceived[0], (int)dataReceived[1], (int)dataReceived[2], (int)dataReceived[3]);
 
+        allPlayers.Add(player);
     }
 
     public void ListPlayersSend()
