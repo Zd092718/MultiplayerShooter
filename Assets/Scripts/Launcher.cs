@@ -37,10 +37,12 @@ public class Launcher : MonoBehaviourPunCallbacks
     public TMP_InputField nameInput;
     public static bool hasSetNickname;
 
-    public string levelToPlay;
     public GameObject startButton;
 
     public GameObject roomTestButton;
+
+    public string[] allMaps;
+    public bool changeMapBetweenRounds = true;
 
     void Start()
     {
@@ -261,7 +263,8 @@ public class Launcher : MonoBehaviourPunCallbacks
 
     public void StartGame()
     {
-        PhotonNetwork.LoadLevel(levelToPlay);
+        //PhotonNetwork.LoadLevel(levelToPlay);
+        PhotonNetwork.LoadLevel(allMaps[Random.Range(0, allMaps.Length)]);
     }
 
     public override void OnMasterClientSwitched(Player newMasterClient)

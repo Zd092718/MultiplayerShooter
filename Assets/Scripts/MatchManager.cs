@@ -214,11 +214,11 @@ public class MatchManager : MonoBehaviourPunCallbacks, IOnEventCallback
                 {
                     case 0: //kills
                         allPlayers[i].kills += amount;
-                        Debug.Log("Player " + allPlayers[i].name + " : kills :" + allPlayers[i].kills);
+                        //Debug.Log("Player " + allPlayers[i].name + " : kills :" + allPlayers[i].kills);
                         break;
                     case 1: //deaths
                         allPlayers[i].deaths += amount;
-                        Debug.Log("Player " + allPlayers[i].name + " : deaths :" + allPlayers[i].deaths);
+                        //Debug.Log("Player " + allPlayers[i].name + " : deaths :" + allPlayers[i].deaths);
                         break;
                 }
 
@@ -380,7 +380,21 @@ public class MatchManager : MonoBehaviourPunCallbacks, IOnEventCallback
         {
             if (PhotonNetwork.IsMasterClient)
             {
-                NextMatchSend();
+                if (!Launcher.Instance.changeMapBetweenRounds)
+                {
+                    NextMatchSend();
+                } else
+                {
+                    int newLevel = Random.Range(0, Launcher.Instance.allMaps.Length);
+
+                    if(Launcher.Instance.allMaps[newLevel] == SceneManager.GetActiveScene().name)
+                    {
+                        NextMatchSend();
+                    } else
+                    {
+                        PhotonNetwork.LoadLevel(Launcher.Instance.allMaps[newLevel]);
+                    }
+                }
             }
         }
 
@@ -403,7 +417,7 @@ public class MatchManager : MonoBehaviourPunCallbacks, IOnEventCallback
         UIController.Instance.endScreen.SetActive(false);
         UIController.Instance.leaderboard.SetActive(false);
 
-        foreach(PlayerInfo player in allPlayers)
+        foreach (PlayerInfo player in allPlayers)
         {
             player.kills = 0;
             player.deaths = 0;
