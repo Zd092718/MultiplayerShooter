@@ -3129,6 +3129,7 @@ MonoBehaviour:
   mapCamPoint: {fileID: 595983448}
   state: 0
   waitAfterEnding: 5
+  perpertual: 1
 --- !u!4 &609429710
 Transform:
   m_ObjectHideFlags: 0

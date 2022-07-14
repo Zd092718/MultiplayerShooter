@@ -19,7 +19,8 @@ public class MatchManager : MonoBehaviourPunCallbacks, IOnEventCallback
     {
         NewPlayer,
         ListPlayers,
-        UpdateStats
+        UpdateStats,
+        NextMatch
     }
 
     public List<PlayerInfo> allPlayers = new List<PlayerInfo>();
@@ -37,7 +38,9 @@ public class MatchManager : MonoBehaviourPunCallbacks, IOnEventCallback
     public int killsToWin = 3;
     public Transform mapCamPoint;
     public GameState state = GameState.Waiting;
-    public float waitAfterEnding = 5;
+    public float waitAfterEnding = 8;
+
+    public bool perpertual;
 
     // Start is called before the first frame update
     void Start()
@@ -89,6 +92,9 @@ public class MatchManager : MonoBehaviourPunCallbacks, IOnEventCallback
                     break;
                 case EventCodes.UpdateStats:
                     UpdateStatsReceive(data);
+                    break;
+                case EventCodes.NextMatch:
+                    NextMatchReceive();
                     break;
             }
         }
@@ -313,9 +319,9 @@ public class MatchManager : MonoBehaviourPunCallbacks, IOnEventCallback
     {
         bool winnerFound = false;
 
-        foreach(PlayerInfo player in allPlayers)
+        foreach (PlayerInfo player in allPlayers)
         {
-            if(player.kills >= killsToWin && killsToWin > 0)
+            if (player.kills >= killsToWin && killsToWin > 0)
             {
                 winnerFound = true;
                 break;
@@ -324,7 +330,7 @@ public class MatchManager : MonoBehaviourPunCallbacks, IOnEventCallback
 
         if (winnerFound)
         {
-            if(PhotonNetwork.IsMasterClient && state != GameState.Ending)
+            if (PhotonNetwork.IsMasterClient && state != GameState.Ending)
             {
                 state = GameState.Ending;
                 ListPlayersSend();
@@ -365,8 +371,47 @@ public class MatchManager : MonoBehaviourPunCallbacks, IOnEventCallback
     {
         yield return new WaitForSeconds(waitAfterEnding);
 
-        PhotonNetwork.AutomaticallySyncScene = false;
-        PhotonNetwork.LeaveRoom();
+        if (!perpertual)
+        {
+            PhotonNetwork.AutomaticallySyncScene = false;
+            PhotonNetwork.LeaveRoom();
+        }
+        else
+        {
+            if (PhotonNetwork.IsMasterClient)
+            {
+                NextMatchSend();
+            }
+        }
+
+    }
+
+    public void NextMatchSend()
+    {
+        PhotonNetwork.RaiseEvent(
+            (byte)EventCodes.NextMatch,
+            null,
+            new RaiseEventOptions { Receivers = ReceiverGroup.All },
+            new SendOptions { Reliability = true }
+            );
+    }
+
+    public void NextMatchReceive()
+    {
+        state = GameState.Playing;
+
+        UIController.Instance.endScreen.SetActive(false);
+        UIController.Instance.leaderboard.SetActive(false);
+
+        foreach(PlayerInfo player in allPlayers)
+        {
+            player.kills = 0;
+            player.deaths = 0;
+        }
+
+        UpdateStatsDisplay();
+
+        PlayerSpawner.Instance.SpawnPlayer();
     }
 }
 
