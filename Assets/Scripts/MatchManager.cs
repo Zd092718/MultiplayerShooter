@@ -396,11 +396,6 @@ public class MatchManager : MonoBehaviourPunCallbacks, IOnEventCallback
     {
         state = GameState.Ending;
 
-        if (PhotonNetwork.IsMasterClient)
-        {
-            PhotonNetwork.DestroyAll();
-        }
-
 
 
         UIController.Instance.endScreen.SetActive(true);
@@ -413,10 +408,17 @@ public class MatchManager : MonoBehaviourPunCallbacks, IOnEventCallback
         Camera.main.transform.rotation = mapCamPoint.rotation;
 
         StartCoroutine(EndCo());
+
     }
 
     private IEnumerator EndCo()
     {
+        if (PhotonNetwork.IsMasterClient)
+        {
+
+            PhotonNetwork.DestroyAll();
+        }
+
         yield return new WaitForSeconds(waitAfterEnding);
 
         if (!perpertual)
