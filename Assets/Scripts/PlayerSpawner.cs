@@ -63,6 +63,7 @@ public class PlayerSpawner : MonoBehaviour
         if (MatchManager.Instance.state == MatchManager.GameState.Playing && player == null)
         {
             SpawnPlayer();
+            
         }
     }
 }

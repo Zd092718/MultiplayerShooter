@@ -4335,13 +4335,12 @@ MonoBehaviour:
   roomButton: {fileID: 1337834503}
   nameInputScreen: {fileID: 408084797}
   nameInput: {fileID: 2062589499}
-  levelToPlay: Map1
   startButton: {fileID: 1156485441}
   roomTestButton: {fileID: 527896325}
   allMaps:
   - Map1
   - Map2
-  changeMapBetweenRounds: 0
+  changeMapBetweenRounds: 1
 --- !u!1 &1575730447
 GameObject:
   m_ObjectHideFlags: 0

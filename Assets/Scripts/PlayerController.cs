@@ -184,7 +184,7 @@ public class PlayerController : MonoBehaviourPunCallbacks
             else if (Cursor.lockState == CursorLockMode.None)
             {
                 // re-enables character control if "escaped" out
-                if (Input.GetMouseButtonDown(0))
+                if (Input.GetMouseButtonDown(0) && !UIController.Instance.optionsScreen.activeInHierarchy)
                 {
                     Cursor.lockState = CursorLockMode.Locked;
                 }

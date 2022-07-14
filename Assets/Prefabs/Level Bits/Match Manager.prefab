@@ -50,3 +50,4 @@ MonoBehaviour:
   state: 0
   waitAfterEnding: 5
   perpertual: 1
+  matchLength: 15

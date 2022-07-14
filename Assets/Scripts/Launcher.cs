@@ -24,7 +24,7 @@ public class Launcher : MonoBehaviourPunCallbacks
 
     public GameObject roomScreen;
     public TMP_Text roomNameText, playerNameLabel;
-    private List<TMP_Text> allPlayerNames = new List<TMP_Text> ();
+    private List<TMP_Text> allPlayerNames = new List<TMP_Text>();
 
     public GameObject errorScreen;
     public TMP_Text errorText;
@@ -51,7 +51,10 @@ public class Launcher : MonoBehaviourPunCallbacks
         loadingScreen.SetActive(true);
         loadingText.text = "Connecting to Network...";
 
-        PhotonNetwork.ConnectUsingSettings();
+        if (!PhotonNetwork.IsConnected)
+        {
+            PhotonNetwork.ConnectUsingSettings();
+        }
 
 #if UNITY_EDITOR
         roomTestButton.SetActive(true);
@@ -70,7 +73,7 @@ public class Launcher : MonoBehaviourPunCallbacks
         errorScreen.SetActive(false);
         roomBrowserScreen.SetActive(false);
         nameInputScreen.SetActive(false);
-        }
+    }
 
     public override void OnConnectedToMaster()
     {
@@ -137,7 +140,8 @@ public class Launcher : MonoBehaviourPunCallbacks
         if (PhotonNetwork.IsMasterClient)
         {
             startButton.SetActive(true);
-        } else
+        }
+        else
         {
             startButton.SetActive(false);
         }
@@ -145,14 +149,14 @@ public class Launcher : MonoBehaviourPunCallbacks
 
     private void ListAllPlayers()
     {
-        foreach(TMP_Text player in allPlayerNames)
+        foreach (TMP_Text player in allPlayerNames)
         {
             Destroy(player.gameObject);
         }
         allPlayerNames.Clear();
 
         Player[] players = PhotonNetwork.PlayerList;
-        for(int i = 0; i < players.Length; i++)
+        for (int i = 0; i < players.Length; i++)
         {
             TMP_Text newPlayerLabel = Instantiate(playerNameLabel, playerNameLabel.transform.parent);
             newPlayerLabel.text = players[i].NickName;
@@ -264,6 +268,11 @@ public class Launcher : MonoBehaviourPunCallbacks
     public void StartGame()
     {
         //PhotonNetwork.LoadLevel(levelToPlay);
+        if (PhotonNetwork.IsMasterClient)
+        {
+
+            PhotonNetwork.DestroyAll();
+        }
         PhotonNetwork.LoadLevel(allMaps[Random.Range(0, allMaps.Length)]);
     }
 
